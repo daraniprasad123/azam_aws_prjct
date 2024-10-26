@@ -8,10 +8,10 @@ app.secret_key = 'temporary_key'
 # Database connection
 def get_db_connection():
     return mysql.connector.connect(
-        host='database-2.c5eyis2co1ux.ap-south-1.rds.amazonaws.com',
+        host='clonedb.cra0y62a089h.us-east-1.rds.amazonaws.com',
         user='admin',
-        password='azam_1234',
-        database='course_app'
+        password='daraniprasad',
+        database='clone_db'
     )
 
 # Registration Route
@@ -21,7 +21,6 @@ def register():
         username = request.form['username']
         password = request.form['password']
         hashed_password = generate_password_hash(password, method='sha256')
-
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute('INSERT INTO users (username, password_hash) VALUES (%s, %s)', (username, hashed_password))
@@ -56,8 +55,8 @@ def login():
 @app.route('/dashboard')
 def dashboard():
     course_urls = [
-        'https://aws-project-virtualclassroom.s3.ap-south-1.amazonaws.com/python_code.pdf',
-        'https://aws-project-virtualclassroom.s3.ap-south-1.amazonaws.com/PYTHON+PROGRAMMING+NOTES.pdf'
+        'https://clonebucker12.s3.us-east-1.amazonaws.com/python_code.pdf',
+        'https://clonebbucket.s3.amazonaws.com/PYTHON%2BPhttps://clonebucker12.s3.us-east-1.amazonaws.com/PYTHON%2BPROGRAMMING%2BNOTES.pdf'
     ]
     
     return render_template('dashboard.html', course_urls=course_urls)
@@ -73,4 +72,4 @@ def logout():
     return redirect(url_for('login'))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0",port=5000,debug=True)
